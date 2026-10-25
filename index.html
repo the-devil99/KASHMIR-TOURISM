@@ -880,7 +880,7 @@
             color: var(--flare);
         }
 
-        /* Chat Widget (Noor) */
+        /* Chat Widget (Emotionally Intelligent Noor AI) */
         .chat-launcher {
             position: fixed;
             bottom: 2rem;
@@ -908,8 +908,8 @@
             position: fixed;
             bottom: 5rem;
             right: 2rem;
-            width: 360px;
-            height: 480px;
+            width: 400px;
+            height: 550px;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 12px;
@@ -932,6 +932,19 @@
         .chat-header h4 {
             color: var(--bone);
             font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chat-header h4::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #2ecc71;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px #2ecc71;
         }
 
         .chat-header span {
@@ -960,7 +973,9 @@
         .chat-msg {
             padding: 0.75rem 1rem;
             border-radius: 8px;
-            max-width: 85%;
+            max-width: 88%;
+            line-height: 1.5;
+            word-break: break-word;
         }
 
         .chat-msg.guide {
@@ -976,11 +991,54 @@
             align-self: flex-end;
         }
 
+        .chat-typing {
+            display: flex;
+            gap: 4px;
+            padding: 0.75rem 1rem;
+            background: var(--blood);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            align-self: flex-start;
+            align-items: center;
+            width: fit-content;
+        }
+
+        .chat-typing span {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .chat-typing span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .chat-typing span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
+
+            40% {
+                transform: scale(1.0);
+            }
+        }
+
         .chat-chips {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             padding: 0.5rem 1.25rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid var(--border);
         }
 
         .chat-chip {
@@ -991,6 +1049,12 @@
             border-radius: 12px;
             font-size: 0.75rem;
             cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chat-chip:hover {
+            border-color: var(--gold);
+            background: var(--surface-hover);
         }
 
         .chat-footer {
@@ -1005,7 +1069,7 @@
             flex: 1;
             background: var(--surface);
             border: 1px solid var(--border);
-            padding: 0.5rem 0.75rem;
+            padding: 0.6rem 0.75rem;
             color: var(--bone);
             border-radius: 4px;
             font-size: 0.85rem;
@@ -1020,7 +1084,7 @@
             background: var(--ember);
             color: var(--bone);
             border: none;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1rem;
             border-radius: 4px;
             font-weight: 600;
             cursor: pointer;
@@ -1311,27 +1375,31 @@
         </div>
     </footer>
 
-    <!-- Chat Guide Widget (Noor) -->
+    <!-- Chat Guide Widget (Emotionally Intelligent Noor AI) -->
     <button class="chat-launcher" id="chat-launcher">💬 Ask Noor</button>
     <div class="chat-window" id="chat-window">
         <div class="chat-header">
             <div>
                 <h4>Noor</h4>
-                <span>Expedition Guide</span>
+                <span>Senior Expedition Concierge</span>
             </div>
             <button class="chat-close" id="chat-close">&times;</button>
         </div>
         <div class="chat-body" id="chat-body">
-            <div class="chat-msg guide">Salaam. I am Noor. Ask me about routes, timing, or private expedition packages.
-            </div>
+            <div class="chat-msg guide">Salaam, Janab. I am Noor, your senior concierge for The Devil's Kashmir. Whether
+                you wish to navigate our alpine sanctuaries, understand our Wazwan feasts, or customize your expedition
+                budget—I am at your service. How are you feeling about your journey today?</div>
         </div>
-        <div class="chat-chips">
-            <span class="chat-chip" onclick="sendPreset('Where should I go?')">Where should I go?</span>
-            <span class="chat-chip" onclick="sendPreset('Best time for skiing')">Best time for skiing</span>
-            <span class="chat-chip" onclick="sendPreset('What is Wazwan?')">What is Wazwan?</span>
+        <div class="chat-chips" id="chat-chips">
+            <span class="chat-chip" onclick="sendPreset('I am so excited to visit!')">I'm so excited!</span>
+            <span class="chat-chip" onclick="sendPreset('Is it safe and difficult to trek?')">Is it
+                safe/difficult?</span>
+            <span class="chat-chip" onclick="sendPreset('I need help planning a romantic trip')">Romantic Trip
+                Plan</span>
+            <span class="chat-chip" onclick="sendPreset('Tell me a story about Kashmir')">Tell me a story</span>
         </div>
         <div class="chat-footer">
-            <input type="text" id="chat-input" placeholder="Ask about places, timing..."
+            <input type="text" id="chat-input" placeholder="Share your thoughts with Noor..."
                 onkeypress="if(event.key==='Enter')sendMsg()">
             <button onclick="sendMsg()">Send</button>
         </div>
@@ -1686,7 +1754,9 @@
             cursor.style.top = `${e.clientY}px`;
         });
 
-        // Chatbot Widget ("Noor")
+        // =======================================================
+        // EMOTIONALLY INTELLIGENT CONCIERGE ENGINE ("NOOR")
+        // =======================================================
         const launcher = document.getElementById('chat-launcher');
         const windowBox = document.getElementById('chat-window');
         const closeBtn = document.getElementById('chat-close');
@@ -1694,29 +1764,123 @@
         launcher.addEventListener('click', () => { windowBox.style.display = 'flex'; });
         closeBtn.addEventListener('click', () => { windowBox.style.display = 'none'; });
 
+        let chatMemory = {
+            lastSanctuary: null,
+            emotionalState: 'neutral'
+        };
+
         function sendMsg() {
             const input = document.getElementById('chat-input');
             const body = document.getElementById('chat-body');
-            if (!input.value.trim()) return;
+            const text = input.value.trim();
+            if (!text) return;
 
-            body.innerHTML += `<div class="chat-msg user">${input.value}</div>`;
-            const query = input.value.toLowerCase();
+            // Append User Message
+            body.innerHTML += `<div class="chat-msg user">${escapeHtml(text)}</div>`;
             input.value = '';
+            body.scrollTop = body.scrollHeight;
 
+            // Show Typing Indicator
+            const typingId = 'typing-' + Date.now();
+            body.innerHTML += `<div class="chat-typing" id="${typingId}"><span></span><span></span><span></span></div>`;
+            body.scrollTop = body.scrollHeight;
+
+            // Human-like response timing simulation
             setTimeout(() => {
-                let reply = "I can guide you through our 8 sanctuaries, custom itineraries, and VIP expedition tiers.";
-                if (query.includes('where') || query.includes('place')) reply = "Explore our 8 curated sanctuaries above — including remote gems like Yusmarg and Gurez Valley alongside Dal Lake and Gulmarg.";
-                if (query.includes('ski') || query.includes('winter')) reply = "Gulmarg offers world-class powder snow from December to March via the high-altitude gondola.";
-                if (query.includes('wazwan') || query.includes('food')) reply = "Wazwan is our legendary multi-course banquet featuring rogan josh and gushtaba served from copper platters.";
+                const typingEl = document.getElementById(typingId);
+                if (typingEl) typingEl.remove();
 
+                const reply = processEmotionalHumanQuery(text);
                 body.innerHTML += `<div class="chat-msg guide">${reply}</div>`;
                 body.scrollTop = body.scrollHeight;
-            }, 500);
+            }, 850);
         }
 
         function sendPreset(text) {
             document.getElementById('chat-input').value = text;
             sendMsg();
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function processEmotionalHumanQuery(query) {
+            const q = query.toLowerCase();
+
+            // --- 1. EMOTION DETECTION & EMPATHY MAPPING ---
+
+            // Excitement & Joy
+            if (q.match(/excited|cant wait|amazing|wow|awesome|love|thrilled|epic|wonderful/)) {
+                chatMemory.emotionalState = 'excited';
+                return `I love that energy, Janab! Your excitement is truly contagious. There is nothing quite like the rush of standing before Kashmir's snow-crowned peaks or gliding across Dal Lake at sunrise. Which of our sanctuaries are you most eager to conquer?`;
+            }
+
+            // Anxiety, Fear, Safety Concerns
+            if (q.match(/safe|scared|worried|danger|fear|cold|altitude|risk|unsure|nervous/)) {
+                chatMemory.emotionalState = 'anxious';
+                return `I completely understand your hesitation, Janab. Stepping into uncharted alpine territory can feel daunting, but please breathe easy. Our expeditions include private armed and verified mountain guides, seamless transit, and luxury shelter every step of the way. You are in safe, expert hands. What specific worry is on your mind?`;
+            }
+
+            // Confusion, Overwhelm, Hesitation
+            if (q.match(/confused|overwhelmed|don't know|lost|help me choose|too much|unsure/)) {
+                chatMemory.emotionalState = 'confused';
+                return `Take a deep breath, Janab. Exploring a valley as majestic as Kashmir can certainly feel overwhelming at first glance. Let's take it one step at a time. Are you looking for quiet seclusion in untouched pine forests like Yusmarg, or the vibrant energy of Dal Lake?`;
+            }
+
+            // Romance / Couples Travel
+            if (q.match(/romantic|honeymoon|couple|love story|partner|wife|husband|wedding/)) {
+                chatMemory.emotionalState = 'romantic';
+                return `Ah, romance in the valley... poetry in motion. Imagine waking up inside a cedar houseboat on Dal Lake with morning mist over the water, sipping warm saffron Kahwa by fireside, or watching the golden autumn Chinar leaves fall in the Mughal Gardens. Shall I help you curate a bespoke romantic itinerary?`;
+            }
+
+            // Storytelling / Philosophical
+            if (q.match(/story|legend|tell me about|history|secret|myth|devil|kashmir/)) {
+                chatMemory.emotionalState = 'curious';
+                return `The valley whispers ancient legends, Janab. Long before emperors carved pleasure gardens into the Zabarwan foothills, poets called Kashmir *'Heaven on Earth'*—guarded by jagged glacial passes that test the bold. Every lake has a mirror-flat reflection of a forgotten dynasty. What part of our valley's soul would you like to uncover?`;
+            }
+
+            // --- 2. SPECIFIC SANCTUARY INQUIRIES ---
+            const foundSanctuary = CONFIG.destinations.find(d => q.includes(d.name.toLowerCase()) || q.includes(d.id.replace('-', ' ')));
+            if (foundSanctuary) {
+                chatMemory.lastSanctuary = foundSanctuary;
+                return `Ah, you have selected <strong>${foundSanctuary.name} (${foundSanctuary.region})</strong>! It sits at an altitude of ${foundSanctuary.altitude}.<br><br>${foundSanctuary.summary}<br><br><strong>Best Season:</strong> ${foundSanctuary.bestTime}<br><em>Would you like me to add ${foundSanctuary.name} to your custom expedition route drawer?</em>`;
+            }
+
+            // Contextual Follow-up
+            if (chatMemory.lastSanctuary && (q.includes('there') || q.includes('reach') || q.includes('how') || q.includes('cold') || q.includes('weather'))) {
+                const s = chatMemory.lastSanctuary;
+                if (q.includes('cold') || q.includes('weather') || q.includes('temp')) {
+                    return `At ${s.name}, typical temperatures range around ${s.temp}. Mountain weather can be delightfully crisp, so make sure to pack warm woolens!`;
+                }
+                return `All expeditions to ${s.name} begin from our Srinagar basecamp with private chauffeured transit. You won't have to lift a finger—just enjoy the view.`;
+            }
+
+            // --- 3. FOOD & DRINK ---
+            if (q.match(/food|eat|wazwan|kahwa|tea|cuisine|dinner|lunch|drink|dine|hungry/)) {
+                if (q.includes('kahwa') || q.includes('tea')) {
+                    return "There is nothing quite like holding a warm cup of **Kahwa**—infused with cardamom, cinnamon, saffron, and crushed almonds—while watching the crisp mountain mist roll past.";
+                }
+                return "Our culinary masterpiece is **Wazwan**—a grand multi-course banquet featuring Rogan Josh and Gushtaba, traditionally shared around large copper platters. It is an experience of pure Kashmiri warmth and hospitality.";
+            }
+
+            // --- 4. SEASONS & TIMING ---
+            if (q.match(/season|time|when|weather|month|spring|summer|autumn|winter|snow|ski/)) {
+                return "Every season in Kashmir paints a completely different masterpiece:<br>• **Spring (Mar–May):** Blooming orchards and vibrant green valleys.<br>• **Summer (Jun–Aug):** Alpine wildflowers and cool lake breezes.<br>• **Autumn (Sep–Nov):** Glowing copper Chinar leaves under clear skies.<br>• **Winter (Dec–Feb):** Deep powder snow in Gulmarg for world-class skiing.";
+            }
+
+            // --- 5. PRICING & ESTIMATOR ---
+            if (q.match(/price|cost|budget|tier|vip|package|money|rate|pay|expedition/)) {
+                return `Our packages span from Standard Valley Stays to Deluxe Houseboats and <strong>The Devil's VIP Expedition</strong> (₹50,000/night tier). Your currency is currently set to <strong>${currentCurrency}</strong>. You can fine-tune travelers and nights instantly in our Trip Estimator section on the page!`;
+            }
+
+            // --- 6. GREETINGS & SMALL TALK ---
+            if (q.match(/hi|hello|hey|salaam|greetings|who are you|noor|help/)) {
+                return "Salaam, Janab. I am Noor, your senior concierge. More than just a guide, I am here to listen, converse, and ensure your expedition through Kashmir is entirely flawless. How are you feeling today?";
+            }
+
+            // --- 7. HUMAN-LIKE EMPATHETIC FALLBACK ---
+            return `I hear you, Janab. Every traveler's journey through Kashmir is entirely unique. Whether you are seeking quiet alpine solitude, rich cultural storytelling, or meticulous route planning, I am right here with you. Tell me a bit more about what you envision!`;
         }
     </script>
 </body>
